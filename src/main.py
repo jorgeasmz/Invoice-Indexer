@@ -97,9 +97,12 @@ def process_multiple_invoices(directory_path, output_dir=None, save_ocr=False):
         str: Ruta al archivo Excel generado
     """
     # Buscar archivos de factura en el directorio (PDF e imágenes)
-    pdf_files = glob.glob(os.path.join(directory_path, "*.pdf"))
+    pdf_files = []
+    pdf_files.extend(glob.glob(os.path.join(directory_path, "*.pdf")))
+    pdf_files.extend(glob.glob(os.path.join(directory_path, "*.PDF")))
+    
     image_files = []
-    for ext in ["jpg", "jpeg", "png", "tiff"]:
+    for ext in ["jpg", "jpeg", "png", "tiff", "JPG", "JPEG", "PNG", "TIFF"]:
         image_files.extend(glob.glob(os.path.join(directory_path, f"*.{ext}")))
     
     invoice_files = pdf_files + image_files
